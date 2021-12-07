@@ -1,0 +1,35 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minimal-api-deployment
+spec:
+  template:
+    metadata:
+      labels:
+        app: minimal-api
+    spec:
+      containers:
+        - name: minimal-api-container
+          image: minimal-api
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7226
+            - containerPort: 5126
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+          resources:
+            requests:
+              cpu: 10m
+            limits:
+              cpu: 20m
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minimal-api
+    
