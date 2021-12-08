@@ -1,7 +1,7 @@
 # K8s-LoadBalance-and-HPA
 Utilizando serviços de Load Balance e Horizontal Pod Autoscaler(Escalonamento automático de pods) de Pods do Kubernetes com Web API .NET 6
 
-## O que e Kuberenetes?
+## O que é Kuberenetes?
   Kubernetes ou k8s, é um orquestrador de container para deploy, escalonamento e manutenção dos containers. Diferente do Docker, k8s utiliza *Pods*, onde cada Pod contem um ou mais containers.
   
    O Kuberenetes trabalha com múltiplos hosts (master e nodes), onde consegue distribuir Pods automaticamente entre diferentes maquinas para melhorar performance e distribuir o poder de processamento entre as maquinas.
