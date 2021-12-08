@@ -2,29 +2,29 @@
 Utilizando serviços de Load Balance e Horizontal Pod Autoscaler(Escalonamento automático de pods) de Pods do Kubernetes com Web API .NET 6
 
 ## O que e Kuberenetes?
-  Kubernetes ou k8s, eh um orquestrador de container para deploy, escalonamento e manutenção dos containers. Diferente do Docker, k8s utiliza *Pods*, onde cada Pod contem um ou mais containers.
+  Kubernetes ou k8s, é um orquestrador de container para deploy, escalonamento e manutenção dos containers. Diferente do Docker, k8s utiliza *Pods*, onde cada Pod contem um ou mais containers.
   
    O Kuberenetes trabalha com múltiplos hosts (master e nodes), onde consegue distribuir Pods automaticamente entre diferentes maquinas para melhorar performance e distribuir o poder de processamento entre as maquinas.
    
    Hoje em dia os principais serviços de cloud já disponibilizam o K8s de uma forma transparente, com fácil implementação e com abstração da configuração das maquinas, apenas sendo necessário configurar os pods que serão utilizados.
 
 ## Explicando a API
-  Para esse projeto foi criado uma minimal api, utilizando uma das novidades do .NET 6, com apenas dois endpoints. Onde o endpoint ```api/localip``` retornar o IP interno onde a aplicação esta rodando e o endpoint ```/health``` eh utilizado para controle do Kubernetes para verificar se a aplicação esta no ar.
+  Para esse projeto foi criado uma minimal api, utilizando uma das novidades do .NET 6, com apenas dois endpoints. Onde o endpoint ```api/localip``` retornar o IP interno onde a aplicação esta rodando e o endpoint ```/health``` é utilizado para controle do Kubernetes para verificar se a aplicação esta no ar.
 
 ## Servicos de rede do Kubernetes?
-  Dentre os diversos recursos disponíveis, o serviço de rede no K8s, chamado apenas de *service*, eh um meio abstrato e fácil de expor pods para a rede. Ao iniciar um pod com service o K8s já configura um IP e um nome de DNS, com load balance automático caso tenha replicas do mesmo Pod. A parte de configurar de rede eh realizada automaticamente pelo K8s sem possibilidade de configuração manual, devido a isso para se comunicar entre pods eh necessário a utilização do nome DNS, ate pois caso seja identificado uma falha em algum Pod normalmente o K8s destrói essa instância e cria uma nova, com novas configurações de IP.
+  Dentre os diversos recursos disponíveis, o serviço de rede no K8s, chamado apenas de *service*, é um meio abstrato e fácil de expor pods para a rede. Ao iniciar um pod com service o K8s já configura um IP e um nome de DNS, com load balance automático caso tenha replicas do mesmo Pod. A parte de configurar de rede eh realizada automaticamente pelo K8s sem possibilidade de configuração manual, devido a isso para se comunicar entre pods eh necessário a utilização do nome DNS, ate pois caso seja identificado uma falha em algum Pod normalmente o K8s destrói essa instância e cria uma nova, com novas configurações de IP.
   
   Abaixo os tipos de services disponíveis no kubernetes:
   
 - **ClusterIP**: Expõem o service internamente para o cluster, podendo ser alcançado apenas para pods ou serviços dentro do cluster. Esse e o tipo de service padrão.
-- **NodePort**: Expõem o service com uma porta estática, por exemplo para testes se utiliza NodePort para exportar no localhost as portas necessárias. Caso seja implementado esse serviço o ClusterIP eh automaticamente criado. obs: Portas disponíveis para expor vai de 30000-32768.
+- **NodePort**: Expõem o service com uma porta estática, por exemplo para testes se utiliza NodePort para exportar no localhost as portas necessárias. Caso seja implementado esse serviço o ClusterIP é automaticamente criado. obs: Portas disponíveis para expor vai de 30000-32768.
 - **LoadBalancer**: Expõem o service externamente usando um load balancer de um provedor de cloud. Serviço de NodePort e ClusterIP são criados automaticamente. Nesse tipo de serviço não ha restrição de porta para expor.
 - **ExternalName**: Funciona como qualquer outro service, porem ao acessar o nome do serviço, ao invés de retornar o IP retornara o CNAME com o valor configurado.
 
-## O que eh HPA?
-  O recuso Horizontal Pod Autoscaling (HPA) eh um recurso que escalona automaticamente, com base na carga de trabalho definida (cpu, memoria, etc), recursos de ```deployment``` ou ```statefulset``` (recursos para implementar pods com configurações mais avançadas), para combinar com a demanda atual requisitada.
+## O que é HPA?
+  O recuso Horizontal Pod Autoscaling (HPA) é um recurso que escalona automaticamente, com base na carga de trabalho definida (cpu, memoria, etc), recursos de ```deployment``` ou ```statefulset``` (recursos para implementar pods com configurações mais avançadas), para combinar com a demanda atual requisitada.
   
-  Diferente do escalonamento vertical, onde para suprir a demanda eh adicionado mais recursos como cpu ou memoria, o HPA escalona horizontalmente, ou seja, cria novos pods conforme a demanda e destrói
+  Diferente do escalonamento vertical, onde para suprir a demanda é adicionado mais recursos como cpu ou memoria, o HPA escalona horizontalmente, ou seja, cria novos pods conforme a demanda e destrói
 quando a demanda esta baica, mantendo apenas o mínimo de réplicas necessárias.
 
 ## Executando o projeto
