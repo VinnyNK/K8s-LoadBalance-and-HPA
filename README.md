@@ -55,7 +55,7 @@ Primeiramente iremos criar o recurso service, que seria a parte de rede. A segui
 kubectl apply -f svc-minimal-api.yaml
 kubectl get svc
 ```
-![image](https://user-images.githubusercontent.com/28060427/145243424-2593587f-db2c-47f5-8c47-bae4e53b3121.png)
+![image](https://user-images.githubusercontent.com/28060427/145261757-13b080d7-80d0-418e-84df-8c420a0d6702.png)
 
 Agora iremos iniciar o recurso deployment, onde ha a informação do(s) Pod(s) além de configuração de número de réplicas, recurso de health cheack e liveness probe, e qual o limite do recurso do pos. Apos para analisar os deployments no cluster e em seguida o comando que lista os pods no cluster.
 ```
