@@ -3,12 +3,11 @@ kind: Service
 metadata:
   name: svc-minimal-api
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: 80
+      nodePort: 30080
       name: http
-    - port: 443
-      name: https
   
   selector:
     app: minimal-api

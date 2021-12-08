@@ -13,8 +13,8 @@ spec:
           image: minimal-api
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 7226
-            - containerPort: 5126
+            - containerPort: 80
+            - containerPort: 443
           livenessProbe:
             httpGet:
               path: /health
